@@ -16,7 +16,6 @@ Vagrant.configure("2") do |config|
   end
 
   config.vm.provision "shell", path: "./../install_docker_engine.sh"
-  config.vm.provision "shell", path: "./../install_kubectl.sh"
-  config.vm.provision "shell", path: "./../install_minikube.sh"
+  config.vm.provision "shell", path: "./../install_k8s.sh"
   config.vm.provision "shell", path: "./../install_additional_tools.sh"
 end
