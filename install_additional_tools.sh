@@ -9,3 +9,4 @@ sudo apt install -y \
     jq \
     curl \
     wget \
+    net-tools
