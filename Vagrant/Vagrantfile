@@ -17,4 +17,8 @@ Vagrant.configure("2") do |config|
 
   config.vm.provision "shell", path: "./../install_k8s.sh"
   config.vm.provision "shell", path: "./../install_additional_tools.sh"
+  config.vm.provision "shell", run: "always", inline: <<-SHELL
+    apt install dos2unix -y
+    find "/opt/Course_files" -type f -print0 | xargs -0 dos2unix
+  SHELL
 end

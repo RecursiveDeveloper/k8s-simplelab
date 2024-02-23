@@ -7,6 +7,4 @@ sudo apt update -y
 
 sudo apt install -y \
     jq \
-    curl \
-    wget \
     net-tools

@@ -1,30 +1,35 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: php-apache-deployment
+  name: nginx-deployment
   labels:
-    app: php-apache
+    app: nginx
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
-      app: php-apache
+      app: nginx
   template:
     metadata:
       labels:
-        app: php-apache
+        app: nginx
     spec:
       restartPolicy: Always
       volumes:
         - name: pv-storage
           persistentVolumeClaim:
             claimName: pvc-claim-001
+        - name: config-volume
+          configMap:
+            name: nginx-config-dir
       containers:
-        - name: php-apache-app
-          image: php:8.3.2-apache
+        - name: nginx
+          image: nginx:alpine
           volumeMounts:
             - name: pv-storage
               mountPath: /var/www/html/
+            - name: config-volume
+              mountPath: /etc/nginx/conf.d/
           ports:
             - containerPort: 80
           env:
