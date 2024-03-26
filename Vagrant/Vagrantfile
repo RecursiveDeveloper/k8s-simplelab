@@ -9,7 +9,7 @@ Vagrant.configure("2") do |config|
   config.vm.synced_folder "./../Course_files", "/opt/Course_files"
 
   config.vm.provider "virtualbox" do |vb|
-    vb.memory = 4096
+    vb.memory = 5120
     vb.cpus = 3
     vb.customize ["modifyvm", :id, "--uart1", "0x3F8", "4"]
     vb.customize ["modifyvm", :id, "--uartmode1", "file", File::NULL]
@@ -20,5 +20,7 @@ Vagrant.configure("2") do |config|
   config.vm.provision "shell", run: "always", inline: <<-SHELL
     apt install dos2unix -y
     find "/opt/Course_files" -type f -print0 | xargs -0 dos2unix
+
+    bash /opt/Course_files/Resources01/deploy.sh
   SHELL
 end
