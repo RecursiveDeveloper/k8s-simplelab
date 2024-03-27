@@ -1,10 +1,10 @@
 #!/bin/bash
 
-OWNER="vagrant"
+OWNER=$1
 
 echo -e "\nInstalling Docker Engine...\n"
 echo -e "This may take a while...\n"
-
+echo "User set as default $OWNER"
 sudo apt-get -y update
 
 # Add Docker's official GPG key:
@@ -28,28 +28,3 @@ newgrp docker
 
 sudo systemctl enable docker.service
 sudo systemctl enable containerd.service
-
-#---------------------------------------------
-echo -e "\nInstalling Kubectl\n"
-#---------------------------------------------
-sudo apt update -y
-curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
-
-#Validate the binary
-curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl.sha256"
-echo "$(cat kubectl.sha256)  kubectl" | sha256sum --check
-
-#Install kubectl
-sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
-kubectl version --client --output=yaml
-
-#---------------------------------------------
-echo -e "\nInstalling MicroK8s\n"
-#---------------------------------------------
-sudo snap install microk8s --classic
-microk8s status --wait-ready
-
-sudo usermod -a -G microk8s $OWNER
-sudo mkdir -p ~/.kube
-sudo chown -f -R $OWNER ~/.kube
-sudo newgrp microk8s
