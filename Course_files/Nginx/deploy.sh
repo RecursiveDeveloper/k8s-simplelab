@@ -1,9 +1,9 @@
 #!/bin/bash
 
+manifest_files="/opt/Course_files/Nginx"
+configmap_dir="${manifest_files}/config_files"
 namespace="app"
 configmap_name="nginx-config-dir"
-configmap_dir="/opt/Course_files/Resources01/nginx"
-manifest_files="/opt/Course_files/Resources01"
 
 microk8s kubectl create namespace ${namespace}
 

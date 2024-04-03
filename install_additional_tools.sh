@@ -7,4 +7,5 @@ sudo apt update -y
 
 sudo apt install -y \
     jq \
-    net-tools
+    net-tools \
+    htop
