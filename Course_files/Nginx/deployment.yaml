@@ -5,7 +5,7 @@ metadata:
   labels:
     app: nginx
 spec:
-  replicas: 2
+  replicas: 3
   selector:
     matchLabels:
       app: nginx
@@ -21,7 +21,10 @@ spec:
           claimName: pvc-claim-001
       - name: config-volume
         configMap:
-          name: nginx-config-dir
+          name: nginx-config
+      - name: secret-volume
+        secret:
+          secretName: nginx-secret
       containers:
       - name: nginx
         image: nginx:alpine
@@ -30,6 +33,9 @@ spec:
           mountPath: /var/www/html/
         - name: config-volume
           mountPath: /etc/nginx/conf.d/
+        - name: secret-volume
+          mountPath: /etc/nginx/secrets/
+          readOnly: true
         ports:
         - containerPort: 80
         env:
