@@ -1,26 +1,23 @@
 #!/bin/bash
 
-manifest_files="/opt/Course_files/Nginx"
-configmap_dir="${manifest_files}/config_files"
-secret_dir="${manifest_files}/secrets"
+OWNER=$1
 
+manifest_files="/opt/Course_files/Nginx/manifests"
+configmap_dir="/opt/Course_files/Nginx/config_files"
 namespace="app"
-configmap_name="nginx-config"
-secret_name="nginx-secret"
+configmap_name="nginx-config-dir"
 
-microk8s kubectl create namespace ${namespace}
+su - $OWNER <<EOF
+    kubectl create namespace ${namespace}
 
-microk8s kubectl create configmap ${configmap_name} \
-    --from-file=${configmap_dir} \
-    -n ${namespace}
+    kubectl create configmap ${configmap_name} \
+        --from-file=${configmap_dir} \
+        -n ${namespace}
 
-microk8s kubectl create secret generic ${secret_name} \
-    --from-file=${secret_dir} \
-    -n ${namespace}
-
-microk8s kubectl apply \
-    -f $manifest_files/persistentVolume.yaml \
-    -f $manifest_files/persistentVolumeClaim.yaml \
-    -f $manifest_files/service.yaml \
-    -f $manifest_files/deployment.yaml \
-    -n ${namespace}
+    kubectl apply \
+        -f $manifest_files/persistentVolume.yaml \
+        -f $manifest_files/persistentVolumeClaim.yaml \
+        -f $manifest_files/service.yaml \
+        -f $manifest_files/deployment.yaml \
+        -n ${namespace}
+EOF
