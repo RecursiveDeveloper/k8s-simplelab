@@ -2,8 +2,10 @@ OWNER = "vagrant"
 
 Vagrant.configure("2") do |config|
   config.vm.box = "ubuntu/jammy64"
-  config.vm.boot_timeout = 600
+  config.vm.boot_timeout = 480
   config.vm.synced_folder "./Course_files", "/opt/Course_files"
+
+  config.vm.network "forwarded_port", guest: 8081, host: 8081
 
   config.vm.provider "virtualbox" do |vb|
     vb.memory = 5120
