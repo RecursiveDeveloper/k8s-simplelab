@@ -1,5 +1,5 @@
 ## 🚀 About Me
-I'm a junior DevOps engineer with some expertise in BackEnd development using Java and Node.js, scripting skills with Python, Bash and JavaScript, besides CI/CD and cloud knowledge of AWS and Azure DevOps tools ...
+I'm a junior DevOps engineer with some expertise in BackEnd development using Java and Node.js; scripting skills with Python, Bash and JavaScript; besides CI/CD and cloud knowledge of AWS and Azure DevOps tools ...
 
 ![Logo](https://e1.pxfuel.com/desktop-wallpaper/541/577/desktop-wallpaper-fantastic-backgrounds.jpg)
 ![linux](https://img.shields.io/badge/Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black)
