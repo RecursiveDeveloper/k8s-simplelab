@@ -35,3 +35,24 @@ spec:
         env:
         - name: "ENVIRONMENT"
           value: "dev"
+        # startupProbe:
+        #   exec:
+        #     command:
+        #     - cat
+        #     - /var/www/html/index.html
+        #   failureThreshold: 30
+        #   periodSeconds: 10
+        readinessProbe:
+          tcpSocket:
+            port: 80
+          initialDelaySeconds: 15
+          periodSeconds: 10
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 80
+            httpHeaders:
+            - name: Custom-Header
+              value: livenessProbe
+          initialDelaySeconds: 15
+          periodSeconds: 3

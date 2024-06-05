@@ -20,9 +20,4 @@ su - $OWNER <<EOF
         -f $manifest_files/service.yaml \
         -f $manifest_files/deployment.yaml \
         -n ${namespace}
-
-    sleep 25
-    kubectl port-forward service/nginx-service 8081:80 \
-        --address 0.0.0.0 \
-        -n $namespace
 EOF
