@@ -8,7 +8,7 @@ curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-
 sudo install minikube-linux-amd64 /usr/local/bin/minikube && rm minikube-linux-amd64
 
 su - $OWNER <<EOF
-    minikube start --nodes 2
+    minikube start --nodes 3
     minikube status
 EOF
 
