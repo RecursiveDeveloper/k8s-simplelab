@@ -8,6 +8,7 @@ Vagrant.configure("2") do |config|
   config.vm.network "forwarded_port", guest: 8081, host: 8081
 
   config.vm.provider "virtualbox" do |vb|
+    vb.name = "Docker-k8s"
     vb.memory = 4096
     vb.cpus = 3
     vb.customize ["modifyvm", :id, "--uart1", "0x3F8", "4"]
@@ -17,7 +18,7 @@ Vagrant.configure("2") do |config|
   config.vm.provision "shell", 
       path: "./provisioners/install_additional_tools.sh"
   config.vm.provision "shell", 
-    path: "./provisioners/install_dockerEngine.sh", args: "#{OWNER}"
+    path: "./provisioners/install_docker.sh", args: "#{OWNER}"
   config.vm.provision "shell", 
     path: "./provisioners/install_kubectl.sh"
   config.vm.provision "shell", 

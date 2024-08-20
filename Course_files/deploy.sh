@@ -21,6 +21,7 @@ su - $OWNER <<EOF
         -f $nginx_manifests/persistentVolumeClaim.yaml \
         -f $nginx_manifests/service.yaml \
         -f $nginx_manifests/deployment.yaml \
+        -f $nginx_manifests/job.yaml \
         -n ${namespace}
 
     kubectl apply -f $course_files_dir/Debug/node-problem-detector.yaml
