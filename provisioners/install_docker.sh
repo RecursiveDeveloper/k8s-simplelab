@@ -1,10 +1,10 @@
 #!/bin/bash
 
-OWNER=$1
+owner=$1
 
 echo -e "\nInstalling Docker Engine...\n"
 echo -e "This may take a while...\n"
-echo "User set as default $OWNER"
+echo "User set as default ${owner}"
 sudo apt-get -y update
 
 # Add Docker's official GPG key:
@@ -22,7 +22,7 @@ sudo apt-get -y update
 
 sudo apt-get -y install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 sudo groupadd docker
-sudo usermod -aG docker $OWNER
+sudo usermod -aG docker ${owner}
 
 newgrp docker
 

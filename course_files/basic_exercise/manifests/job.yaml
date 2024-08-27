@@ -1,7 +1,7 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: hello-world
+  name: job
 spec:
   template:
     spec:
@@ -9,5 +9,5 @@ spec:
       containers:
         - name: test
           command: [ "/bin/bash", "-c" ]
-          args: [ "i=0 \n while [ $i -lt 100 ]\ndo \n /bin/echo hola en linea $i\n let i=$i+1 \n sleep 1; done" ]
+          args: [ "i=0 \n while [ $i -lt 50 ]\ndo \n /bin/echo hola en linea $i\n let i=$i+1 \n sleep 1; done" ]
           image: ubuntu:latest

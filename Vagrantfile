@@ -1,9 +1,10 @@
 OWNER = "vagrant"
+SYNCFOLDER = "/opt/course_files"
 
 Vagrant.configure("2") do |config|
   config.vm.box = "ubuntu/jammy64"
   config.vm.boot_timeout = 480
-  config.vm.synced_folder "./Course_files", "/opt/Course_files"
+  config.vm.synced_folder "./course_files", "/opt/course_files"
 
   config.vm.network "forwarded_port", guest: 8081, host: 8081
 
@@ -24,5 +25,7 @@ Vagrant.configure("2") do |config|
   config.vm.provision "shell", 
     path: "./provisioners/install_minikube.sh", args: "#{OWNER}"
   config.vm.provision "shell",
-    path: "./provisioners/install_manifests.sh", args: "#{OWNER}"
+    path: "./provisioners/install_helm.sh", args: "#{OWNER}"
+  config.vm.provision "shell",
+    path: "./provisioners/install_manifests.sh", args: "#{OWNER} #{SYNCFOLDER}"
 end
