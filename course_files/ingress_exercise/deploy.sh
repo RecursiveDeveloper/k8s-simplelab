@@ -1,29 +1,30 @@
 #!/bin/bash
 
-OWNER=$1
+owner=$1
+ingress_exercise_folder=$2
 
-course_files_dir="/opt/course_files/basic_exercise"
-nginx_manifests="${course_files_dir}/manifests"
-nginx_configmap="${course_files_dir}/config_files"
+nginx_manifests="${ingress_exercise_folder}/manifests"
 
-namespace="app"
-configmap_name="nginx-config"
+namespace="ingress-nginx"
 
-su - $OWNER <<EOF
+su - ${owner} <<EOF
     kubectl create namespace ${namespace}
 
-    kubectl create configmap ${configmap_name} \
-        --from-file=${nginx_configmap} \
-        -n ${namespace}
+    helm repo add ${namespace} https://kubernetes.github.io/ingress-nginx
+    helm install -n ${namespace} ${namespace} ${namespace}/${namespace}
 
     kubectl apply \
-        -f $nginx_manifests/persistentVolume.yaml \
-        -f $nginx_manifests/persistentVolumeClaim.yaml \
-        -f $nginx_manifests/service.yaml \
-        -f $nginx_manifests/deployment.yaml \
-        -f $nginx_manifests/job.yaml \
-        -f $nginx_manifests/cronjob.yaml \
-        -n ${namespace}
+        -f ${nginx_manifests}/httpd-deployment.yaml \
+        -f ${nginx_manifests}/nginx-deployment.yaml \
+        -f ${nginx_manifests}/httpd-service.yaml \
+        -f ${nginx_manifests}/nginx-service.yaml
+    
+    ########################
+    #Provisional validation webhook deletion due to unsolved error
+    ########################
+    kubectl delete -A ValidatingWebhookConfiguration ingress-nginx-admission
 
-    kubectl apply -f $course_files_dir/debug/node-problem-detector.yaml
+    kubectl apply \
+        -f ${nginx_manifests}/ingress-path.yaml \
+        -f ${nginx_manifests}/ingress-host.yaml
 EOF
