@@ -11,7 +11,7 @@ Vagrant.configure("2") do |config|
   config.vm.provider "virtualbox" do |vb|
     vb.name = "Docker-k8s"
     vb.memory = 4096
-    vb.cpus = 3
+    vb.cpus = 4
     vb.customize ["modifyvm", :id, "--uart1", "0x3F8", "4"]
     vb.customize ["modifyvm", :id, "--uartmode1", "file", File::NULL]
   end
