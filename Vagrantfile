@@ -12,13 +12,9 @@ Vagrant.configure("2") do |config|
     vb.name = "k8s-simplelab"
     vb.memory = 4096
     vb.cpus = 3
-    vb.customize ["modifyvm", :id, "--uart1", "0x3F8", "4"]
-    vb.customize ["modifyvm", :id, "--uartmode1", "file", File::NULL]
   end
 
   config.vm.provision "shell", path: "./provisioners/install_additional_tools.sh"
-  config.vm.provision "shell", path: "./provisioners/install_docker.sh", args: "#{OWNER}"
-  config.vm.provision "shell", path: "./provisioners/install_kubectl.sh"
-  config.vm.provision "shell", path: "./provisioners/install_minikube.sh", args: "#{OWNER}"
+  config.vm.provision "shell", path: "./provisioners/install_k8s.sh", args: "#{OWNER}"
   config.vm.provision "shell", path: "./provisioners/apply_manifests.sh", args: "#{OWNER} #{SYNCFOLDER}"
 end
