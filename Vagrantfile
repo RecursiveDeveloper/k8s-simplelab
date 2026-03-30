@@ -6,8 +6,6 @@ Vagrant.configure("2") do |config|
   config.vm.boot_timeout = 480
   config.vm.synced_folder "./course_files", "/opt/course_files"
 
-  config.vm.network "forwarded_port", guest: 8081, host: 8081
-
   config.vm.provider "virtualbox" do |vb|
     vb.name = "k8s-simplelab"
     vb.memory = 4096
