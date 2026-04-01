@@ -20,6 +20,7 @@ microk8s kubectl apply \
   -f ${nginx_manifests}/persistentVolumeClaim.yaml \
   -f ${nginx_manifests}/service.yaml \
   -f ${nginx_manifests}/deployment.yaml \
+  -f ${nginx_manifests}/ingress.yaml \
   -f ${nginx_manifests}/job.yaml \
   -f ${nginx_manifests}/cronjob.yaml \
   -n ${namespace}
